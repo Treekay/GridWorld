@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<project default="dest" name="GridWorld">
+
+    <property name="gridworldDir" location="../../dist/GridWorldCode"/>
+    <property name="buildDir" location="build"/>
+    <property name="destDir" location="dest"/>
+    <property name="mazeDir" location="mazeBug"/>
+
+    <target name="init">
+      <tstamp/>
+      <mkdir dir="${buildDir}"/>
+      <mkdir dir="${destDir}"/>
+    </target>
+
+    <target name="compile" depends="init" >
+        <javac srcdir="${mazeDir}" destdir="${buildDir}" classpath="${gridworldDir}/gridworld.jar"  includeAntRuntime="false"/>
+    </target>
+
+    <target name="dest" depends="compile">
+       <jar destfile="${destDir}/package-${DSTAMP}.jar" basedir="${buildDir}">
+         <manifest>
+           <attribute name="Main-Class" value="Null"/>
+         </manifest>
+       </jar>
+    </target>
+
+    <target name="run" depends="dest">
+      <java classname="MazeBugRunner" fork="true"> 
+        <classpath>
+          <pathelement location="${gridworldDir}/gridworld.jar" />
+          <pathelement location="${buildDir}" />
+        </classpath>
+      </java>
+    </target>
+
+    <target name="clean">
+      <delete dir="${buildDir}"/>
+      <delete dir="${destDir}"/>
+    </target>
+</project>

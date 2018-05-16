@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="HelloWorld" default="run" basedir=".">
+
+	<property name="src" location="src"/>
+    <property name="dest" location="dest"/>
+    <property name="hello_jar" value="hello.jar"/>
+
+    <target name="junit">
+    	<available property="junit.present" classname="junit.framework.TestCase"/>
+    </target>
+
+	<target name="init" depends="junit">
+		<mkdir dir="${dest}"/>
+	</target>
+
+	<target name="complie" depends="init">
+		<javac srcdir="${src}" destdir="${dest}" includeantruntime="on"/>
+	</target>
+
+	<target name="run" depends="complie">
+		<java classname="HelloWorld" classpath="${dest}" fork="yes"/>
+	</target>
+
+	<target name="test" depends="complie">
+		<junit printsummary="yes">
+			<formatter type="plain"/>
+			<classpath path="${dest}"/>
+			<test name="HelloWorldTest"/>
+		</junit>
+	</target>
+
+	<target name="clean">
+		<delete dir="${dest}"/>
+	</target>
+</project>

@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<project default="dest" name="GridWorld">
+ 
+    <property name="circleDir" location="Part2/CircleBug"/>
+    <property name="dancingDir" location="Part2/DancingBug"/>
+    <property name="spiralDir" location="Part2/SpiralBug"/>
+    <property name="zDir" location="Part2/ZBug"/>
+    <property name="ModifiedChameleonDir" location="Part4/ModifiedChameleonCritter"/>
+    <property name="KidDir" location="Part4/ChameleonKid"/>
+    <property name="BlusterDir" location="Part4/BlusterCritter"/>
+    <property name="RockDir" location="Part4/RockHound"/>
+    <property name="QuickDir" location="Part4/QuickCrab"/>
+    <property name="KingDir" location="Part4/KingCrab"/>
+    <property name="gridworldDir" location="../../"/>
+    <property name="buildDir" location="build"/>
+    <property name="destDir" location="dest"/>
+    <property name="critters" location="../critters"/>
+    <property name="gridRunnerDir" location="Part5"/>
+    <property name="sparseDir1" location="Part5/SparseBoundedGrid"/>
+    <property name="sparseDir2" location="Part5/SparseBoundedGrid2"/>
+    <property name="unboundedDir" location="Part5/UnboundedGrid2"/>
+ 
+    <target name="init">
+      <tstamp/>
+      <mkdir dir="${buildDir}"/>
+      <mkdir dir="${destDir}"/>
+    </target>
+
+    <target name="compile" depends="init" >
+      <javac srcdir="${circleDir}" destdir="${buildDir}" classpath="${gridworldDir}/gridworld.jar"  includeAntRuntime="false"/>
+      <javac srcdir="${dancingDir}" destdir="${buildDir}" classpath="${gridworldDir}/gridworld.jar"  includeAntRuntime="false"/>
+      <javac srcdir="${spiralDir}" destdir="${buildDir}" classpath="${gridworldDir}/gridworld.jar"  includeAntRuntime="false"/>
+      <javac srcdir="${zDir}" destdir="${buildDir}" classpath="${gridworldDir}/gridworld.jar"  includeAntRuntime="false"/>
+      <javac srcdir="${ModifiedChameleonDir}" destdir="${buildDir}" classpath="${gridworldDir}/gridworld.jar"  includeAntRuntime="false"/>
+      <javac srcdir="${KidDir}" destdir="${buildDir}" classpath="${gridworldDir}/gridworld.jar"  includeAntRuntime="false"/>
+      <javac srcdir="${BlusterDir}" destdir="${buildDir}" classpath="${gridworldDir}/gridworld.jar"  includeAntRuntime="false"/>
+      <javac srcdir="${RockDir}" destdir="${buildDir}" classpath="${gridworldDir}/gridworld.jar"  includeAntRuntime="false"/>
+      <javac srcdir="${QuickDir}" destdir="${buildDir}" includeAntRuntime="false">
+        <classpath>
+          <pathelement location="${gridworldDir}/gridworld.jar" />
+          <pathelement location="${critters}"/>
+        </classpath>
+      </javac>
+      <javac srcdir="${KingDir}" destdir="${buildDir}" includeAntRuntime="false">
+        <classpath>
+          <pathelement location="${gridworldDir}/gridworld.jar" />
+          <pathelement location="${critters}"/>
+        </classpath>
+      </javac>
+      <javac srcdir="${sparseDir1}" destdir="${buildDir}" classpath="${gridworldDir}/gridworld.jar" includeAntRuntime="false"/>
+      <javac srcdir="${sparseDir2}" destdir="${buildDir}" classpath="${gridworldDir}/gridworld.jar" includeAntRuntime="false"/>
+      <javac srcdir="${unboundedDir}" destdir="${buildDir}" classpath="${gridworldDir}/gridworld.jar" includeAntRuntime="false"/>
+      <javac srcdir="${gridRunnerDir}" destdir="${buildDir}" classpath="${gridworldDir}/gridworld.jar" includeAntRuntime="false"/>
+    </target>
+ 
+    <target name="dest" depends="compile">
+       <jar destfile="${destDir}/package-${DSTAMP}.jar" basedir="${buildDir}">
+         <manifest>
+           <attribute name="Main-Class" value="Null"/>
+         </manifest>
+       </jar>
+    </target>
+
+    <target name="CircleBugRunner" depends="dest">
+      <java classname="CircleBugRunner" fork="true"> 
+        <classpath>
+          <pathelement location="${gridworldDir}/gridworld.jar" />
+          <pathelement location="${buildDir}" />
+        </classpath>
+      </java>
+    </target>
+
+    <target name="SpiralBugRunner" depends="dest">
+        <java classname="SpiralBugRunner" fork="true"> 
+        <classpath>
+          <pathelement location="${gridworldDir}/gridworld.jar" />
+          <pathelement location="${buildDir}" />
+        </classpath>
+      </java>
+    </target>
+
+    <target name="DancingBugRunner" depends="dest">
+        <java classname="DancingBugRunner" fork="true"> 
+        <classpath>
+          <pathelement location="${gridworldDir}/gridworld.jar" />
+          <pathelement location="${buildDir}" />
+        </classpath>
+      </java>
+    </target>
+
+    <target name="ZBugRunner" depends="dest">
+        <java classname="ZBugRunner" fork="true"> 
+        <classpath>
+          <pathelement location="${gridworldDir}/gridworld.jar" />
+          <pathelement location="${buildDir}" />
+        </classpath>
+      </java>
+    </target>
+
+    <target name="ModifiedChameleonCritterRunner" depends="dest">
+      <java classname="ModifiedChameleonCritterRunner" fork="true"> 
+        <classpath>
+          <pathelement location="${gridworldDir}/gridworld.jar" />
+          <pathelement location="${buildDir}" />
+        </classpath>
+      </java>
+    </target>
+
+    <target name="ChameleonKidRunner" depends="dest">
+      <java classname="ChameleonKidRunner" fork="true"> 
+        <classpath>
+          <pathelement location="${gridworldDir}/gridworld.jar" />
+          <pathelement location="${buildDir}" />
+        </classpath>
+      </java>
+    </target>
+
+    <target name="RockHoundRunner" depends="dest">
+      <java classname="RockHoundRunner" fork="true"> 
+        <classpath>
+          <pathelement location="${gridworldDir}/gridworld.jar" />
+          <pathelement location="${buildDir}" />
+        </classpath>
+      </java>
+    </target>
+
+    <target name="BlusterCritterRunner" depends="dest">
+      <java classname="BlusterCritterRunner" fork="true"> 
+        <classpath>
+          <pathelement location="${gridworldDir}/gridworld.jar" />
+          <pathelement location="${buildDir}" />
+        </classpath>
+      </java>
+    </target>
+
+    <target name="QuickCrabRunner" depends="dest">
+      <java classname="QuickCrabRunner" fork="true"> 
+        <classpath>
+          <pathelement location="${gridworldDir}/gridworld.jar" />
+          <pathelement location="${critters}" />
+          <pathelement location="${buildDir}" />
+        </classpath>
+      </java>
+    </target>
+
+    <target name="KingCrabRunner" depends="dest">
+      <java classname="KingCrabRunner" fork="true"> 
+        <classpath>
+          <pathelement location="${gridworldDir}/gridworld.jar" />
+          <pathelement location="${critters}" />
+          <pathelement location="${buildDir}" />
+        </classpath>
+      </java>
+    </target>
+
+    <target name="SparseGridRunner" depends="dest">
+      <java classname="SparseGridRunner" fork="true">
+        <classpath>
+          <pathelement location="${gridworldDir}/gridworld.jar" />
+          <pathelement location="${buildDir}" />
+        </classpath>
+      </java>
+    </target>
+ 
+    <target name="clean">
+      <delete dir="${buildDir}"/>
+      <delete dir="${destDir}"/>
+    </target>
+</project>

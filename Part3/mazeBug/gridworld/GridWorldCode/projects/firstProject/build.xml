@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="GridWorld" default="BugRunner" basedir=".">
+
+	<property name="firstProject" location="firstProject"/>
+    <property name="boxBug" location="boxBug"/>
+    <property name="CircleBug" location="CircleBug"/>
+    <property name="SpiralBug" location="SpiralBug"/>
+    <property name="DancingBug" location="DancingBug"/>
+    <property name="ZBug" location="ZBug"/>
+
+    <target name="init">
+		<mkdir dir="${boxBug}"/>
+		<mkdir dir="${CircleBug}"/>
+		<mkdir dir="${SpiralBug}"/>
+		<mkdir dir="${DancingBug}"/>
+		<mkdir dir="${ZBug}"/>
+	</target>
+
+	<target name="BugRunner" depends="init">
+		<java classname="BugRunner" classpath="${firstProject}" fork="yes"/>
+	</target>
+
+	<target name="BoxBugRunner" depends="init">
+		<java classname="BoxBugRunner" classpath="${boxBug}" fork="yes"/>
+	</target>
+
+	<target name="CircleBugRunner" depends="init">
+		<java classname="CircleBugRunner" classpath="${CircleBug}" fork="yes"/>
+	</target>
+
+	<target name="SpiralBugRunner" depends="init">
+		<java classname="SpiralBugRunner" classpath="${SpiralBug}" fork="yes"/>
+	</target>
+
+	<target name="DancingBugRunner" depends="init">
+		<java classname="DancingBugRunner" classpath="${DancingBug}" fork="yes"/>
+	</target>
+
+	<target name="ZBugRunner" depends="init">
+		<java classname="ZBugRunner" classpath="${ZBug}" fork="yes"/>
+	</target>
+
+</project>

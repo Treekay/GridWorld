@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="ImageProcessing" default="compile" basedir=".">
+
+    <property name="srcDir" location="ImageReaderCode/src"/>
+    <property name="destDir" location="ImageReaderCode/dest"/>
+    <property name="buildDir" location="ImageReaderCode/build"/>
+    <property name="imgreaderDir" location="./ImageReader"/>
+
+    <target name="init">
+        <tstamp/>
+        <mkdir dir="${buildDir}"/>
+        <mkdir dir="${destDir}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${srcDir}" destdir="${buildDir}" includeAntRuntime="false">
+            <classpath>
+                <pathelement path="${imgreaderDir}/ImageReader.jar" />
+                <pathelement path="junit-4.9.jar" />
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="dest" depends="compile">
+       <jar destfile="${destDir}/package-${DSTAMP}.jar" basedir="${buildDir}">
+         <manifest>
+           <attribute name="Main-Class" value="Null"/>
+         </manifest>
+       </jar>
+    </target>
+
+    <target name="run" depends="dest">
+        <java classname="ImageReaderRunner" fork="true">
+            <classpath>
+                <pathelement location="${imgreaderDir}/ImageReader.jar"/>
+                <pathelement location="${buildDir}"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="junit" depends="compile">
+        <junit printsummary="true">
+            <classpath>
+                <pathelement path="${imgreaderDir}/ImageReader.jar"/>
+                <pathelement path="${buildDir}"/>
+                <pathelement path="junit-4.9.jar"/>
+            </classpath>
+            <formatter type="failure"/>
+            <test name="ImageProcessTest"/>
+        </junit>
+    </target>
+
+    <target name="clean">
+        <delete dir="${buildDir}"/>
+        <delete dir="${destDir}"/>
+    </target>
+</project>

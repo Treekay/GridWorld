@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<project default="complie" name="jigsaw">
+
+    <property name="destDir" location="dest"/>
+    <property name="srcDir" location="src"/>
+    <property name="jarDir" location="lib"/>
+
+    <target name="init">
+        <tstamp/>
+        <mkdir dir="${destDir}"/>
+    </target>
+
+    <target name="complie" depends="init">
+        <javac srcdir="${srcDir}" destdir="${destDir}" includeAntRuntime="false">
+            <classpath>
+                <pathelement location="${jarDir}/jigsaw.jar"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="RunnerDemo" depends="complie">
+        <java classname="Runners.RunnerDemo" fork="true">
+            <classpath>
+                <pathelement location="${destDir}"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="RunnerPart1" depends="complie">
+        <java classname="Runners.RunnerPart1" fork="true">
+            <classpath>
+                <pathelement location="${destDir}"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="RunnerPart2" depends="complie">
+        <java classname="Runners.RunnerPart2" fork="true">
+            <classpath>
+                <pathelement location="${destDir}"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="test" depends="complie">
+        <java classname="judge.main" fork="true">
+            <classpath>
+                <pathelement location="${destDir}"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="clean">
+        <delete dir="${destDir}"/>
+    </target>
+</project>
